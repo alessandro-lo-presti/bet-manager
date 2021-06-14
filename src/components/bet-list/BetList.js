@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ApiServices } from "../../services/ApiServices";
 
-function BetList() {
+function BetList(props) {
   useEffect(() => {
     ApiServices.betListApi().then((data) => console.log(data));
   }, []);
