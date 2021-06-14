@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   Container,
@@ -22,16 +24,19 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="md">
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <BetList />
-            </Route>
-            <Route path="/:id">Dettaglio</Route>
-          </Switch>
-        </Router>
-      </Container>
+
+      <Provider store={store}>
+        <Container maxWidth="md">
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <BetList />
+              </Route>
+              <Route path="/:id">Dettaglio</Route>
+            </Switch>
+          </Router>
+        </Container>
+      </Provider>
     </ThemeProvider>
   );
 }
