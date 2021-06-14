@@ -1,0 +1,47 @@
+[
+    {
+        "idEvento": 1,
+        "descrizione": "Italia - Turchia",
+        "odds": [1.75, 3.4, 5.5]
+    },
+    {
+        "idEvento": 2,
+        "descrizione": "Spagna - Francia",
+        "betList":[1.65, 2.9, 4.5]
+    },
+    {
+        "idEvento": 3,
+        "descrizione": "Inghilterra - Belgio",
+        "odds": [1.75, 3.4, 5.5]
+    },
+    {
+        "idEvento": 4,
+        "descrizione": "Germania - Russia",
+        "betList":[1.65, 2.9, 4.5]
+    },
+    {
+        "idEvento": 5,
+        "descrizione": "Croazia - Olanda",
+        "odds": [1.75, 3.4, 5.5]
+    },
+    {
+        "idEvento": 6,
+        "descrizione": "Scozia - Finlandia",
+        "betList":[1.65, 2.9, 4.5]
+    },
+    {
+        "idEvento": 7,
+        "descrizione": "Austria - Svizzera",
+        "odds": [1.75, 3.4, 5.5]
+    },
+    {
+        "idEvento": 8,
+        "descrizione": "Irlanda - Portogallo",
+        "betList":[1.65, 2.9, 4.5]
+    },
+    {
+        "idEvento": 9,
+        "descrizione": "Danimarca - Svezia",
+        "odds": [1.75, 3.4, 5.5]
+    }
+]

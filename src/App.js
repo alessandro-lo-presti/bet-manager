@@ -6,6 +6,7 @@ import {
   CssBaseline,
 } from "@material-ui/core";
 import { useMemo } from "react";
+import BetList from "./components/bet-list/BetList";
 
 function App() {
   const theme = useMemo(
@@ -25,7 +26,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              Home
+              <BetList />
             </Route>
             <Route path="/:id">Dettaglio</Route>
           </Switch>
