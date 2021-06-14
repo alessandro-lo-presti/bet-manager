@@ -8,6 +8,7 @@ import {
   betListSelector,
   betListSuccessAction,
 } from "../../redux/slices/betSlice";
+import { toogleBetAction } from "../../redux/slices/bettingSlipSlice";
 import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
   betListSuccess: (betList) => dispatch(betListSuccessAction(betList)),
   betListError: () => dispatch(betListErrorAction()),
   betListClean: () => dispatch(betListCleanAction()),
+  toogleBet: (bet) => dispatch(toogleBetAction(bet)),
 });
 
 function BetList(props) {

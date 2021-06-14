@@ -2,10 +2,9 @@ import { connect } from "react-redux";
 import { Card, CardContent, CardActions, Button } from "@material-ui/core";
 import {
   activeBetSelector,
-  addBetAction,
   billSelector,
-  removeBetAction,
   setBillAction,
+  toogleBetAction,
 } from "../../redux/slices/bettingSlipSlice";
 
 const mapStateToProps = (state) => ({
@@ -14,13 +13,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addBet: (bet) => dispatch(addBetAction(bet)),
-  removeBet: (bet) => dispatch(removeBetAction(bet)),
-  setBill: () => dispatch(setBillAction()),
+  toogleBet: (bet) => dispatch(toogleBetAction(bet)),
+  setBill: (bill) => dispatch(setBillAction(bill)),
 });
 
 function BettingSlip(props) {
-  const { activeBet, bill, addBet, removeBet, setBill } = props;
+  const { activeBet, bill, toogleBet, setBill } = props;
 
   return (
     <Card>
