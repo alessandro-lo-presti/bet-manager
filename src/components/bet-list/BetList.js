@@ -1,4 +1,10 @@
-import { List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+} from "@material-ui/core";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,8 +18,12 @@ import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: "100%",
+    paddingLeft: "25px",
+    paddingRight: "25px",
     backgroundColor: theme.palette.background.paper,
+  },
+  descrizione: {
+    width: "200px",
   },
   quota: {
     height: "35px",
@@ -24,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     textAlign: "center",
     lineHeight: "35px",
+    "&:hover, &.active": {
+      background: "white",
+      color: "#424242",
+    },
   },
 }));
 
@@ -47,19 +61,17 @@ function BetList(props) {
   return (
     <List component="nav" className={classes.list} aria-label="mailbox folders">
       {betList.map((bet) => (
-        <ListItem key={bet.idEvento}>
-          <ListItemText>{bet.descrizione}</ListItemText>
-          <ListItemText>
+        <Box key={bet.idEvento} display="flex" alignItems="center">
+          <div className={classes.descrizione}>{bet.descrizione}</div>
+          <div className={classes.quote}>
             {bet.quote.map((quota) => (
               <span key={quota} className={classes.quota}>
                 {quota}
               </span>
             ))}
-          </ListItemText>
-          <ListItemText>
-            <Link to={"/" + bet.idEvento}>Dettagli</Link>
-          </ListItemText>
-        </ListItem>
+          </div>
+          <Link to={"/" + bet.idEvento}>Dettagli</Link>
+        </Box>
       ))}
     </List>
   );
