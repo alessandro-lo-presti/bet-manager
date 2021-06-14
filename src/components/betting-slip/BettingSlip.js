@@ -1,5 +1,11 @@
 import { connect } from "react-redux";
-import { Card, CardContent, CardActions, Button } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  TextField,
+} from "@material-ui/core";
 import {
   activeBetSelector,
   billSelector,
@@ -23,11 +29,19 @@ function BettingSlip(props) {
   return (
     <Card>
       <CardContent>
-        {activeBet.map((bet) => {
-          <div>{bet.descrizione}</div>;
-        })}
+        {activeBet.map((bet) => (
+          <div key={bet.idEvento}>{bet.descrizione}</div>
+        ))}
       </CardContent>
       <CardActions>
+        <TextField
+          id="standard-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
         <Button variant="contained" color="primary">
           Paga
         </Button>

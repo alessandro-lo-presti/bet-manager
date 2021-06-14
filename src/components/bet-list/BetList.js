@@ -45,18 +45,22 @@ const mapDispatchToProps = (dispatch) => ({
   betListSuccess: (betList) => dispatch(betListSuccessAction(betList)),
   betListError: () => dispatch(betListErrorAction()),
   betListClean: () => dispatch(betListCleanAction()),
-  toogleBet: (bet) => dispatch(toogleBetAction(bet)),
+  toggleBet: (bet, mult_index) => dispatch(toogleBetAction(bet, mult_index)),
 });
 
 function BetList(props) {
   const classes = useStyles();
-  const { betList, betListSuccess, betListError, betListClean } = props;
+  const { betList, betListSuccess, betListError, betListClean, toggleBet } =
+    props;
 
   useEffect(() => {
     ApiServices.betListApi().then(betListSuccess).catch(betListError);
     return () => betListClean();
   }, [betListSuccess, betListError, betListClean]);
 
+  const setPlay = (bet, mult_index) => {
+    toggleBet(bet, mult_index);
+  };
   return (
     <List component="nav" className={classes.list} aria-label="mailbox folders">
       {betList.map((bet) => (
@@ -68,8 +72,12 @@ function BetList(props) {
         >
           <div className={classes.descrizione}>{bet.descrizione}</div>
           <div className={classes.quote}>
-            {bet.quote.map((quota) => (
-              <span key={quota} className={classes.quota}>
+            {bet.quote.map((quota, index) => (
+              <span
+                key={quota}
+                className={classes.quota}
+                onClick={() => setPlay(bet, index)}
+              >
                 {quota}
               </span>
             ))}
