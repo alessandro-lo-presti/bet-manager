@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { useMemo } from "react";
 import BetList from "./components/bet-list/BetList";
+import BetDetails from "./components/bet-details/BetDetails";
 
 function App() {
   const theme = useMemo(
@@ -32,7 +33,9 @@ function App() {
               <Route exact path="/">
                 <BetList />
               </Route>
-              <Route path="/:id">Dettaglio</Route>
+              <Route path="/:id">
+                <BetDetails />
+              </Route>
             </Switch>
           </Router>
         </Container>

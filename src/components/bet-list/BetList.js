@@ -1,35 +1,51 @@
+import { List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
+  betListCleanAction,
   betListErrorAction,
   betListSelector,
   betListSuccessAction,
 } from "../../redux/slices/betSlice";
 import { ApiServices } from "../../services/ApiServices";
 
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
 const mapStateToProps = (state) => ({ betList: betListSelector(state) });
 
 const mapDispatchToProps = (dispatch) => ({
   betListSuccess: (betList) => dispatch(betListSuccessAction(betList)),
   betListError: () => dispatch(betListErrorAction()),
+  betListClean: () => dispatch(betListCleanAction()),
 });
 
 function BetList(props) {
-  const { betList, betListSuccess, betListError } = props;
+  const classes = useStyles();
+  const { betList, betListSuccess, betListError, betListClean } = props;
 
   useEffect(() => {
     ApiServices.betListApi().then(betListSuccess).catch(betListError);
-  }, [betListSuccess, betListError]);
+    return () => betListClean();
+  }, [betListSuccess, betListError, betListClean]);
 
   return (
-    <div>
+    <List component="nav" className={classes.list} aria-label="mailbox folders">
       {betList.map((bet) => (
-        <div key={bet.idEvento}>
-          <p>{bet.descrizione}</p>
-          <p>{bet.odds}</p>
-        </div>
+        <ListItem key={bet.idEvento}>
+          <ListItemText>{bet.descrizione}</ListItemText>
+          <ListItemText>{bet.quote}</ListItemText>
+          <ListItemText>
+            <Link to={"/" + bet.idEvento}>Dettagli</Link>
+          </ListItemText>
+        </ListItem>
       ))}
-    </div>
+    </List>
   );
 }
 

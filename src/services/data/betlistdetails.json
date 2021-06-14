@@ -1,0 +1,74 @@
+[
+    {
+        "idEvento": 1,
+        "descrizione": "Italia - Turchia",
+        "betList": {
+            "1X2": [1.75, 3.4, 5.5],
+            "DC": [1.15, 2.10, 1.32] 
+        }
+    },
+    {
+        "idEvento": 2,
+        "descrizione": "Spagna - Francia",
+        "betList": {
+            "1X2": [1.65, 2.9, 4.5], 
+            "DC": [1.05, 1.90, 1.85]
+        }
+    },
+    {
+        "idEvento": 3,
+        "descrizione": "Inghilterra - Belgio",
+        "betList": {
+            "1X2": [1.75, 3.4, 5.5],
+            "DC": [1.15, 2.10, 1.32] 
+        }
+    },
+    {
+        "idEvento": 4,
+        "descrizione": "Germania - Russia",
+        "betList": {
+            "1X2": [1.65, 2.9, 4.5], 
+            "DC": [1.05, 1.90, 1.85]
+        }
+    },
+    {
+        "idEvento": 5,
+        "descrizione": "Croazia - Olanda",
+        "betList": {
+            "1X2": [1.75, 3.4, 5.5],
+            "DC": [1.15, 2.10, 1.32] 
+        }
+    },
+    {
+        "idEvento": 6,
+        "descrizione": "Scozia - Finlandia",
+        "betList": {
+            "1X2": [1.65, 2.9, 4.5], 
+            "DC": [1.05, 1.90, 1.85]
+        }
+    },
+    {
+        "idEvento": 7,
+        "descrizione": "Austria - Svizzera",
+        "betList": {
+            "1X2": [1.75, 3.4, 5.5],
+            "DC": [1.15, 2.10, 1.32] 
+        }
+    },
+    {
+        "idEvento": 8,
+        "descrizione": "Irlanda - Portogallo",
+        "betList": {
+            "1X2": [1.65, 2.9, 4.5], 
+            "DC": [1.05, 1.90, 1.85]
+        }
+    },
+    {
+        "idEvento": 9,
+        "descrizione": "Danimarca - Svezia",
+        "betList": {
+            "1X2": [1.75, 3.4, 5.5],
+            "DC": [1.15, 2.10, 1.32] 
+        }
+    }
+]
