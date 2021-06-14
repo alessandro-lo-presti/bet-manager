@@ -1,15 +1,18 @@
 // initial state
 const initialState = {
   activeBet: [],
+  pot: 0,
   bill: 0,
 };
 
 // selectors
 export const activeBetSelector = (store) => store.bettingSlipSlice.activeBet;
+export const potSelector = (store) => store.bettingSlipSlice.pot;
 export const billSelector = (store) => store.bettingSlipSlice.bill;
 
 // actions
 const TOOGLE_BET = "TOGGLE_BET";
+const SET_POT = "SET_POT";
 const SET_BILL = "SET_BILL";
 const CLEAR_ALL = "CLEAR_ALL";
 
@@ -17,6 +20,11 @@ export const toogleBetAction = (bet, mult_index) => ({
   type: TOOGLE_BET,
   bet: bet,
   mult_index: mult_index,
+});
+
+export const setPotAction = (pot) => ({
+  type: SET_POT,
+  pot: pot,
 });
 
 export const setBillAction = (bill) => ({
@@ -63,6 +71,12 @@ export const BettingSlipReducer = (state = initialState, action) => {
         };
         return { ...state, activeBet: [...state.activeBet, newElement] };
       }
+    }
+    case SET_POT: {
+      return { ...state, pot: action.pot };
+    }
+    case SET_BILL: {
+      return { ...state, bill: action.bill };
     }
     case CLEAR_ALL: {
       return initialState;

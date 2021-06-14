@@ -8,7 +8,10 @@ import {
   betListSelector,
   betListSuccessAction,
 } from "../../redux/slices/betSlice";
-import { toogleBetAction } from "../../redux/slices/bettingSlipSlice";
+import {
+  activeBetSelector,
+  toogleBetAction,
+} from "../../redux/slices/bettingSlipSlice";
 import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +42,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = (state) => ({ betList: betListSelector(state) });
+const mapStateToProps = (state) => ({
+  betList: betListSelector(state),
+  activeBet: activeBetSelector(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   betListSuccess: (betList) => dispatch(betListSuccessAction(betList)),
@@ -50,8 +56,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 function BetList(props) {
   const classes = useStyles();
-  const { betList, betListSuccess, betListError, betListClean, toggleBet } =
-    props;
+  const {
+    betList,
+    betListSuccess,
+    betListError,
+    activeBet,
+    betListClean,
+    toggleBet,
+  } = props;
 
   useEffect(() => {
     ApiServices.betListApi().then(betListSuccess).catch(betListError);
@@ -61,6 +73,18 @@ function BetList(props) {
   const setPlay = (bet, mult_index) => {
     toggleBet(bet, mult_index);
   };
+
+  const isActive = (bet_id, mult_index) => {
+    const bet = activeBet.find((element) => element.idEvento === bet_id);
+    if (bet && bet.posta === bet.quote[mult_index]) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+  };
+
   return (
     <List component="nav" className={classes.list} aria-label="mailbox folders">
       {betList.map((bet) => (
