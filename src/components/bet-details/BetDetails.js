@@ -26,11 +26,11 @@ function BetDetails(props) {
       .then(detailsBetSuccess)
       .catch(detailsBetError);
     return () => detailsBetClean();
-  }, [detailsBetSuccess, detailsBetError, detailsBetClean]);
+  }, [bet_id, detailsBetSuccess, detailsBetError, detailsBetClean]);
 
   return (
     <div>
-      <p>{bet.descrizione}</p>
+      {Object.keys(bet).length ? <p>{bet.descrizione}</p> : <p>Errore</p>}
     </div>
   );
 }

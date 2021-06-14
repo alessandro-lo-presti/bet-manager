@@ -15,6 +15,16 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
+  quota: {
+    height: "35px",
+    width: "40px",
+    margin: "0 10px",
+    display: "inline-block",
+    border: "1px solid white",
+    borderRadius: "5px",
+    textAlign: "center",
+    lineHeight: "35px",
+  },
 }));
 
 const mapStateToProps = (state) => ({ betList: betListSelector(state) });
@@ -39,7 +49,13 @@ function BetList(props) {
       {betList.map((bet) => (
         <ListItem key={bet.idEvento}>
           <ListItemText>{bet.descrizione}</ListItemText>
-          <ListItemText>{bet.quote}</ListItemText>
+          <ListItemText>
+            {bet.quote.map((quota) => (
+              <span key={quota} className={classes.quota}>
+                {quota}
+              </span>
+            ))}
+          </ListItemText>
           <ListItemText>
             <Link to={"/" + bet.idEvento}>Dettagli</Link>
           </ListItemText>

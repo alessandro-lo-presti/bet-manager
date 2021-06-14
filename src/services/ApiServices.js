@@ -11,7 +11,7 @@ const detailsBetApi = (bet_id) => {
   return new Promise((resolve, reject) => {
     const bet = betListDetails.filter((bet) => bet.idEvento === bet_id);
     if (bet) {
-      resolve(bet[0]);
+      resolve(bet.length ? bet[0] : {});
     } else {
       reject();
     }
