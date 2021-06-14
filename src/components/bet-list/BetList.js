@@ -1,10 +1,4 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, List, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -21,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "25px",
     paddingRight: "25px",
     backgroundColor: theme.palette.background.paper,
+  },
+  row: {
+    margin: "5px 0",
   },
   descrizione: {
     width: "200px",
@@ -61,7 +58,12 @@ function BetList(props) {
   return (
     <List component="nav" className={classes.list} aria-label="mailbox folders">
       {betList.map((bet) => (
-        <Box key={bet.idEvento} display="flex" alignItems="center">
+        <Box
+          key={bet.idEvento}
+          display="flex"
+          alignItems="center"
+          className={classes.row}
+        >
           <div className={classes.descrizione}>{bet.descrizione}</div>
           <div className={classes.quote}>
             {bet.quote.map((quota) => (

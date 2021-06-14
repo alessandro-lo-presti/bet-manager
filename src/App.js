@@ -6,10 +6,12 @@ import {
   createMuiTheme,
   ThemeProvider,
   CssBaseline,
+  Box,
 } from "@material-ui/core";
 import { useMemo } from "react";
 import BetList from "./components/bet-list/BetList";
 import BetDetails from "./components/bet-details/BetDetails";
+import BettingSlip from "./components/betting-slip/BettingSlip";
 
 function App() {
   const theme = useMemo(
@@ -28,16 +30,24 @@ function App() {
 
       <Provider store={store}>
         <Container maxWidth="md">
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <BetList />
-              </Route>
-              <Route path="/:id">
-                <BetDetails />
-              </Route>
-            </Switch>
-          </Router>
+          <Box display="flex">
+            <Box>
+              <Router>
+                <Switch>
+                  <Route exact path="/">
+                    <BetList />
+                  </Route>
+                  <Route path="/:id">
+                    <BetDetails />
+                  </Route>
+                </Switch>
+              </Router>
+            </Box>
+
+            <Box>
+              <BettingSlip />
+            </Box>
+          </Box>
         </Container>
       </Provider>
     </ThemeProvider>
