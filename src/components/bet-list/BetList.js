@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
   betListSuccess: (betList) => dispatch(betListSuccessAction(betList)),
   betListError: () => dispatch(betListErrorAction()),
   betListClean: () => dispatch(betListCleanAction()),
-  toggleBet: (bet, mult_index) => dispatch(toogleBetAction(bet, mult_index)),
+  toggleBet: (bet) => dispatch(toogleBetAction(bet)),
 });
 
 const typeOfBet = (bet_index) => {

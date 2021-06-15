@@ -17,10 +17,9 @@ const SET_BILL = "SET_BILL";
 const CLEAR_BET = "CLEAR_BET";
 const CLEAR_ALL = "CLEAR_ALL";
 
-export const toogleBetAction = (bet, mult_index) => ({
+export const toogleBetAction = (bet) => ({
   type: TOOGLE_BET,
   bet: bet,
-  mult_index: mult_index,
 });
 
 export const setPotAction = (pot) => ({
