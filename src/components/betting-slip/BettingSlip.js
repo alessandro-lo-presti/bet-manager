@@ -1,11 +1,18 @@
 import { connect } from "react-redux";
 import {
   Card,
+  CardHeader,
   CardContent,
   CardActions,
   Button,
   TextField,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
   makeStyles,
+  Box,
 } from "@material-ui/core";
 import {
   activeBetSelector,
@@ -18,26 +25,47 @@ import {
 import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "350px",
+    padding: "20px",
+    backgroundColor: "white",
+    boxShadow: "0 0 10px lightgray",
+    borderRadius: "5px",
+  },
+  row: {
+    margin: "10px 0",
+    padding: "0 30px",
+  },
+  rowPot: {
+    margin: "20px 0",
+    padding: "0 30px",
+  },
+  rowList: {
+    margin: "5px 0",
+    padding: "0 10px",
+  },
+  title: {
+    marginBottom: "10px",
+  },
+  pot: {
+    marginLeft: "80px",
+  },
+  potText: {
+    fontSize: "16px",
+    fontWeight: "600",
+  },
+  icon: {
+    color: "gray",
+  },
   textCenter: {
     textAlign: "center",
-  },
-  contentCentred: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  slip: {
-    width: "300px",
-  },
-  sliprow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   bet_d: {
     width: "190px",
   },
   bet_q: {
     marginRight: "5px",
+    fontWeight: "bold",
   },
 }));
 
@@ -71,42 +99,60 @@ function BettingSlip(props) {
   };
 
   useEffect(() => {
-    potCalculation();
+    // potCalculation();
   }, [activeBet]);
 
   return (
-    <Card className={classes.slip}>
-      <CardContent>
-        {activeBet.map((bet) => (
-          <div key={bet.idEvento} className={classes.sliprow}>
-            <h4 className={classes.bet_d}>{bet.descrizione}</h4>
-            <p className={classes.bet_q}>{bet.tipo + ": " + bet.quota + "x"}</p>
-            <i className="fas fa-minus" onClick={() => clearBet(bet)}></i>
-          </div>
-        ))}
-        <div className={classes.textCenter}>
-          <p>{pot} €</p>
-          <TextField
-            id="puntata"
-            label="Puntata"
-            type="number"
-            InputProps={{ inputProps: { min: 0 } }}
-            onChange={() => potCalculation()}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </div>
-      </CardContent>
-      <CardActions className={classes.contentCentred}>
+    <Box className={classes.root} display="flex" flexDirection="column">
+      <Box>
+        <h2 className={classes.title}>Il tuo biglietto</h2>
+      </Box>
+      {activeBet.map((bet) => (
+        <Box
+          key={bet.idEvento}
+          display="flex"
+          alignItems="Center"
+          justifyContent="space-between"
+          className={classes.rowList}
+        >
+          <p className={classes.bet_d}>{bet.descrizione}</p>
+          <p className={classes.bet_q}>{bet.tipo + ": " + bet.quota}</p>
+          <i
+            className={"fas fa-minus " + classes.icon}
+            onClick={() => clearBet(bet)}
+          ></i>
+        </Box>
+      ))}
+      <Box className={classes.rowPot} display="flex" alignItems="center">
+        <TextField
+          id="puntata"
+          label="Puntata"
+          type="number"
+          InputProps={{ inputProps: { min: 0, max: 10000 } }}
+          onChange={() => potCalculation()}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <Box className={classes.pot}>
+          <Typography className={classes.potText}>Pot</Typography>
+          <Typography className={classes.textCenter}>{pot} €</Typography>
+        </Box>
+      </Box>
+      <Box
+        className={classes.row}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <Button variant="contained" color="primary">
           Paga
         </Button>
         <Button variant="contained" onClick={() => clearAll()}>
-          Svuota
+          Reset
         </Button>
-      </CardActions>
-    </Card>
+      </Box>
+    </Box>
   );
 }
 

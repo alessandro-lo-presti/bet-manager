@@ -8,7 +8,7 @@ const useStyle = makeStyles({
     fontSize: "16px",
   },
   headerContainer: {
-    height: "70px",
+    height: "60px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
