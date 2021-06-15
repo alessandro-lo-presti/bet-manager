@@ -59,11 +59,12 @@ export const BettingSlipReducer = (state = initialState, action) => {
         );
         const newActiveBet = [...state.activeBet];
         newActiveBet.splice(e_index, 1);
-        if (e.quota !== action.bet.quote[action.mult_index]) {
+        if (e.quota !== action.bet.quote[action.bet.mult_index]) {
           // se la quota selezionata è diversa da quella vecchia inserisco un nuovo oggetto con la quota aggiornata
           const newElement = {
             ...action.bet,
-            quota: action.bet.quote[action.mult_index],
+            tipo: action.bet.type,
+            quota: action.bet.quote[action.bet.mult_index],
           };
           return { ...state, activeBet: [...newActiveBet, newElement] };
         } else {
@@ -73,7 +74,8 @@ export const BettingSlipReducer = (state = initialState, action) => {
         //   non è presente, inserisco l'oggetto passato
         const newElement = {
           ...action.bet,
-          quota: action.bet.quote[action.mult_index],
+          tipo: action.bet.type,
+          quota: action.bet.quote[action.bet.mult_index],
         };
         return { ...state, activeBet: [...state.activeBet, newElement] };
       }

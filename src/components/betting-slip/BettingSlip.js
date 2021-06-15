@@ -18,10 +18,26 @@ import {
 import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
+  textCenter: {
+    textAlign: "center",
+  },
+  contentCentred: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  slip: {
+    width: "300px",
+  },
   sliprow: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  bet_d: {
+    width: "190px",
+  },
+  bet_q: {
+    marginRight: "5px",
   },
 }));
 
@@ -59,28 +75,29 @@ function BettingSlip(props) {
   }, [activeBet]);
 
   return (
-    <Card>
+    <Card className={classes.slip}>
       <CardContent>
         {activeBet.map((bet) => (
           <div key={bet.idEvento} className={classes.sliprow}>
-            <h4>
-              {bet.descrizione}: {bet.quota}x
-            </h4>
+            <h4 className={classes.bet_d}>{bet.descrizione}</h4>
+            <p className={classes.bet_q}>{bet.tipo + ": " + bet.quota + "x"}</p>
             <i className="fas fa-minus" onClick={() => clearBet(bet)}></i>
           </div>
         ))}
-        <p>{pot} €</p>
-        <TextField
-          id="puntata"
-          label="Puntata"
-          type="number"
-          onChange={() => potCalculation()}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <div className={classes.textCenter}>
+          <p>{pot} €</p>
+          <TextField
+            id="puntata"
+            label="Puntata"
+            type="number"
+            onChange={() => potCalculation()}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </div>
       </CardContent>
-      <CardActions>
+      <CardActions className={classes.contentCentred}>
         <Button variant="contained" color="primary">
           Paga
         </Button>

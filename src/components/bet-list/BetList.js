@@ -50,6 +50,17 @@ const mapDispatchToProps = (dispatch) => ({
   toggleBet: (bet, mult_index) => dispatch(toogleBetAction(bet, mult_index)),
 });
 
+const typeOfBet = (bet_index) => {
+  switch (bet_index) {
+    case 0:
+      return "1";
+    case 1:
+      return "X";
+    default:
+      return "2";
+  }
+};
+
 function BetList(props) {
   const classes = useStyles();
   const { betList, betListSuccess, betListError, betListClean, toggleBet } =
@@ -61,7 +72,10 @@ function BetList(props) {
   }, [betListSuccess, betListError, betListClean]);
 
   const setPlay = (bet, mult_index) => {
-    toggleBet(bet, mult_index);
+    const betReady = { ...bet };
+    betReady.type = typeOfBet(mult_index);
+    betReady.mult_index = mult_index;
+    toggleBet(betReady);
   };
 
   return (
