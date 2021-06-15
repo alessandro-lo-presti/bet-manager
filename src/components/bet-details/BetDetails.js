@@ -140,9 +140,8 @@ function BetDetails(props) {
               </thead>
               <tbody>
                 {bet.betList["1X2"].map((quota, index) => (
-                  <td>
+                  <td key={quota}>
                     <span
-                      key={quota}
                       className={
                         classes.quota +
                         " " +
@@ -155,9 +154,8 @@ function BetDetails(props) {
                   </td>
                 ))}
                 {bet.betList["DC"].map((quota, index) => (
-                  <td>
+                  <td key={quota}>
                     <span
-                      key={quota}
                       className={
                         classes.quota +
                         " " +

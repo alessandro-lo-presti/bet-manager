@@ -1,0 +1,101 @@
+import { Box, makeStyles } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ApiServices } from "../../services/ApiServices";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: "500px",
+    padding: "20px",
+    backgroundColor: "white",
+    boxShadow: "0 0 10px lightgray",
+    borderRadius: "5px",
+  },
+  title: {
+    marginBottom: "10px",
+  },
+  rowList: {
+    margin: "5px 0",
+    padding: "0 10px",
+  },
+  bet_d: {
+    width: "190px",
+  },
+  resultBox: {
+    paddingRight: "43px",
+  },
+  result: {
+    width: "40px",
+    margin: "0 10px",
+    fontSize: "16px",
+    fontWeight: "bold",
+  },
+  quota: {
+    height: "35px",
+    width: "40px",
+    margin: "0 10px",
+    display: "inline-block",
+    border: "1px solid #3f51bf",
+    borderRadius: "5px",
+    textAlign: "center",
+    lineHeight: "35px",
+    "&:hover, &.active": {
+      background: "#3f51bf",
+      color: "white",
+    },
+  },
+  link: {
+    color: "#3f51bf",
+    textDecoration: "none",
+  },
+}));
+
+function ListBet() {
+  const classes = useStyles();
+  const [betList, setBetList] = useState([]);
+
+  useEffect(() => {
+    ApiServices.betListApi().then(setBetList).catch(console.log);
+  }, []);
+
+  return (
+    <Box className={classes.root} display="flex" flexDirection="column">
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <h2 className={classes.title}>Partite in corso</h2>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          className={classes.resultBox}
+        >
+          <span className={classes.result}>1</span>
+          <span className={classes.result}>X</span>
+          <span className={classes.result}>2</span>
+        </Box>
+      </Box>
+      {betList.map((bet) => (
+        <Box
+          key={bet.idEvento}
+          display="flex"
+          alignItems="Center"
+          justifyContent="space-between"
+          className={classes.rowList}
+        >
+          <p className={classes.bet_d}>{bet.descrizione}</p>
+          <Box display="flex" alignItems="center">
+            <div className={classes.quote}>
+              {bet.quote.map((quota, index) => (
+                <span key={quota} className={classes.quota}>
+                  {quota}
+                </span>
+              ))}
+            </div>
+            <Link to={"/" + bet.idEvento} className={classes.link}>
+              Dettagli
+            </Link>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
+export default ListBet;
