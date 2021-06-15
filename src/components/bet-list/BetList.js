@@ -8,7 +8,10 @@ import {
   betListSelector,
   betListSuccessAction,
 } from "../../redux/slices/betSlice";
-import { toogleBetAction } from "../../redux/slices/bettingSlipSlice";
+import {
+  activeBetSelector,
+  toogleBetAction,
+} from "../../redux/slices/bettingSlipSlice";
 import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   row: {
     margin: "5px 0",
   },
-  descrizione: {
+  leftSide: {
     width: "200px",
   },
   quota: {
@@ -41,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => ({
   betList: betListSelector(state),
+  activeBet: activeBetSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,8 +67,14 @@ const typeOfBet = (bet_index) => {
 
 function BetList(props) {
   const classes = useStyles();
-  const { betList, betListSuccess, betListError, betListClean, toggleBet } =
-    props;
+  const {
+    betList,
+    activeBet,
+    betListSuccess,
+    betListError,
+    betListClean,
+    toggleBet,
+  } = props;
 
   useEffect(() => {
     ApiServices.betListApi().then(betListSuccess).catch(betListError);
@@ -78,8 +88,16 @@ function BetList(props) {
     toggleBet(betReady);
   };
 
+  const isActive = (bet, mult_index) => {
+    const e = activeBet.find((element) => element.idEvento === bet.idEvento);
+    return e && e.quota === e.quote[mult_index] ? true : false;
+  };
+
   return (
     <List component="nav" className={classes.list} aria-label="mailbox folders">
+      <Box display="flex" alignItems="center" className={classes.row}>
+        <h3 className={classes.leftSide}>Partite</h3>
+      </Box>
       {betList.map((bet) => (
         <Box
           key={bet.idEvento}
@@ -87,12 +105,14 @@ function BetList(props) {
           alignItems="center"
           className={classes.row}
         >
-          <div className={classes.descrizione}>{bet.descrizione}</div>
+          <div className={classes.leftSide}>{bet.descrizione}</div>
           <div className={classes.quote}>
             {bet.quote.map((quota, index) => (
               <span
                 key={quota}
-                className={classes.quota}
+                className={
+                  classes.quota + " " + (isActive(bet, index) ? "active" : "")
+                }
                 onClick={() => setPlay(bet, index)}
               >
                 {quota}

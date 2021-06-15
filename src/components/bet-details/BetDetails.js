@@ -88,24 +88,40 @@ function BetDetails(props) {
             <h3>{bet.descrizione}</h3>
           </CardContent>
           <CardActions>
-            {bet.betList["1X2"].map((quota, index) => (
-              <span
-                key={quota}
-                className={classes.quota}
-                onClick={() => setPlay(bet, index + 1)}
-              >
-                {quota}
-              </span>
-            ))}
-            {bet.betList["DC"].map((quota, index) => (
-              <span
-                key={quota}
-                className={classes.quota}
-                onClick={() => setPlay(bet, index + 1 + 3)}
-              >
-                {quota}
-              </span>
-            ))}
+            <table>
+              <thead>
+                <th>1</th>
+                <th>X</th>
+                <th>2</th>
+                <th>1X</th>
+                <th>2X</th>
+                <th>12</th>
+              </thead>
+              <tbody>
+                {bet.betList["1X2"].map((quota, index) => (
+                  <td>
+                    <span
+                      key={quota}
+                      className={classes.quota}
+                      onClick={() => setPlay(bet, index + 1)}
+                    >
+                      {quota}
+                    </span>
+                  </td>
+                ))}
+                {bet.betList["DC"].map((quota, index) => (
+                  <td>
+                    <span
+                      key={quota}
+                      className={classes.quota}
+                      onClick={() => setPlay(bet, index + 1 + 3)}
+                    >
+                      {quota}
+                    </span>
+                  </td>
+                ))}
+              </tbody>
+            </table>
           </CardActions>
         </Card>
       ) : (
