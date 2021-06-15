@@ -2,7 +2,10 @@ import { Card, CardContent, CardActions, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { toogleBetAction } from "../../redux/slices/bettingSlipSlice";
+import {
+  activeBetSelector,
+  toogleBetAction,
+} from "../../redux/slices/bettingSlipSlice";
 import {
   detailsBetCleanAction,
   detailsBetErrorAction,
@@ -28,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = (state) => ({ bet: detailsBetSelector(state) });
+const mapStateToProps = (state) => ({
+  bet: detailsBetSelector(state),
+  activeBet: activeBetSelector(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   detailsBetSuccess: (bet) => dispatch(detailsBetSuccessAction(bet)),
@@ -39,15 +45,15 @@ const mapDispatchToProps = (dispatch) => ({
 
 const typeOfBet = (bet_index) => {
   switch (bet_index) {
-    case 1:
+    case 0:
       return "1";
-    case 2:
+    case 1:
       return "X";
-    case 3:
+    case 2:
       return "2";
-    case 4:
+    case 3:
       return "1X";
-    case 5:
+    case 4:
       return "2X";
     default:
       return "12";
@@ -58,6 +64,7 @@ function BetDetails(props) {
   const classes = useStyles();
   const {
     bet,
+    activeBet,
     detailsBetSuccess,
     detailsBetError,
     detailsBetClean,
@@ -75,9 +82,14 @@ function BetDetails(props) {
   const setPlay = (bet, mult_index) => {
     const betReady = { ...bet };
     betReady.type = typeOfBet(mult_index);
-    betReady.mult_index = mult_index - 1;
+    betReady.mult_index = mult_index;
     betReady.quote = [...betReady.betList["1X2"], ...betReady.betList["DC"]];
     toggleBet(betReady);
+  };
+
+  const isActive = (bet, mult_index) => {
+    const e = activeBet.find((element) => element.idEvento === bet.idEvento);
+    return e && e.quota === e.quote[mult_index] ? true : false;
   };
 
   return (
@@ -102,8 +114,12 @@ function BetDetails(props) {
                   <td>
                     <span
                       key={quota}
-                      className={classes.quota}
-                      onClick={() => setPlay(bet, index + 1)}
+                      className={
+                        classes.quota +
+                        " " +
+                        (isActive(bet, index) ? "active" : "")
+                      }
+                      onClick={() => setPlay(bet, index)}
                     >
                       {quota}
                     </span>
@@ -113,8 +129,12 @@ function BetDetails(props) {
                   <td>
                     <span
                       key={quota}
-                      className={classes.quota}
-                      onClick={() => setPlay(bet, index + 1 + 3)}
+                      className={
+                        classes.quota +
+                        " " +
+                        (isActive(bet, index + 3) ? "active" : "")
+                      }
+                      onClick={() => setPlay(bet, index + 3)}
                     >
                       {quota}
                     </span>
