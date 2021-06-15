@@ -29,12 +29,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Header />
-
       <Provider store={store}>
-        <Container maxWidth="md">
-          <Grid container spacing={3}>
-            <Router>
+        <Router>
+          <Header />
+          <Container maxWidth="md">
+            <Grid container spacing={3}>
               <Switch>
                 <Route exact path="/">
                   <Grid item xs={7}>
@@ -47,13 +46,13 @@ function App() {
                   </Grid>
                 </Route>
               </Switch>
-            </Router>
 
-            <Grid item xs={3}>
-              <BettingSlip />
+              <Grid item xs={3}>
+                <BettingSlip />
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
+          </Container>
+        </Router>
       </Provider>
     </ThemeProvider>
   );

@@ -1,4 +1,5 @@
-import { Card, CardContent, CardActions, makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -15,19 +16,36 @@ import {
 import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: "500px",
+    padding: "20px",
+    backgroundColor: "white",
+    boxShadow: "0 0 10px lightgray",
+    borderRadius: "5px",
+  },
+  title: {
+    marginBottom: "10px",
+  },
+  match: {
+    margin: "30px 0",
+  },
   quota: {
     height: "35px",
     width: "40px",
     margin: "0 10px",
     display: "inline-block",
-    border: "1px solid white",
+    border: "1px solid #3f51bf",
     borderRadius: "5px",
     textAlign: "center",
     lineHeight: "35px",
     "&:hover, &.active": {
-      background: "white",
-      color: "#424242",
+      background: "#3f51bf",
+      color: "white",
     },
+  },
+  link: {
+    color: "#3f51bf",
+    textDecoration: "none",
   },
 }));
 
@@ -95,11 +113,26 @@ function BetDetails(props) {
   return (
     <div>
       {Object.keys(bet).length ? (
-        <Card>
-          <CardContent>
-            <h3>{bet.descrizione}</h3>
-          </CardContent>
-          <CardActions>
+        <Box className={classes.root}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <h2 className={classes.title}>Dettaglio partita</h2>
+            <Link to="/" className={classes.link}>
+              Indietro
+            </Link>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            className={classes.match}
+          >
+            <h2>{bet.descrizione}</h2>
+          </Box>
+          <Box display="flex" justifyContent="center">
             <table>
               <thead>
                 <th>1</th>
@@ -142,8 +175,8 @@ function BetDetails(props) {
                 ))}
               </tbody>
             </table>
-          </CardActions>
-        </Card>
+          </Box>
+        </Box>
       ) : (
         <p>Errore</p>
       )}
