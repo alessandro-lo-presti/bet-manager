@@ -114,11 +114,7 @@ function BetDetails(props) {
     <div>
       {Object.keys(bet).length ? (
         <Box className={classes.root}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          <Box display="flex" justifyContent="space-between">
             <h2 className={classes.title}>Dettaglio partita</h2>
             <Link to="/" className={classes.link}>
               Indietro
