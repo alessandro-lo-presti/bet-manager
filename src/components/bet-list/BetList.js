@@ -1,4 +1,4 @@
-import { Box, List, makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,30 +15,39 @@ import {
 import { ApiServices } from "../../services/ApiServices";
 
 const useStyles = makeStyles((theme) => ({
-  list: {
-    paddingLeft: "25px",
-    paddingRight: "25px",
-    backgroundColor: theme.palette.background.paper,
+  root: {
+    minWidth: "500px",
+    padding: "20px",
+    backgroundColor: "white",
+    boxShadow: "0 0 10px lightgray",
+    borderRadius: "5px",
   },
-  row: {
+  title: {
+    marginBottom: "10px",
+  },
+  rowList: {
     margin: "5px 0",
+    padding: "0 10px",
   },
-  leftSide: {
-    width: "200px",
+  bet_d: {
+    width: "190px",
   },
   quota: {
     height: "35px",
     width: "40px",
     margin: "0 10px",
     display: "inline-block",
-    border: "1px solid white",
+    border: "1px solid #3f51bf",
     borderRadius: "5px",
     textAlign: "center",
     lineHeight: "35px",
     "&:hover, &.active": {
-      background: "white",
-      color: "#424242",
+      background: "#3f51bf",
+      color: "white",
     },
+  },
+  link: {
+    color: "#3f51bf",
   },
 }));
 
@@ -94,18 +103,19 @@ function BetList(props) {
   };
 
   return (
-    <List component="nav" className={classes.list} aria-label="mailbox folders">
-      <Box display="flex" alignItems="center" className={classes.row}>
-        <h3 className={classes.leftSide}>Partite</h3>
+    <Box className={classes.root} display="flex" flexDirection="column">
+      <Box>
+        <h2 className={classes.title}>Partite in corso</h2>
       </Box>
       {betList.map((bet) => (
         <Box
           key={bet.idEvento}
           display="flex"
-          alignItems="center"
-          className={classes.row}
+          alignItems="Center"
+          justifyContent="space-between"
+          className={classes.rowList}
         >
-          <div className={classes.leftSide}>{bet.descrizione}</div>
+          <p className={classes.bet_d}>{bet.descrizione}</p>
           <div className={classes.quote}>
             {bet.quote.map((quota, index) => (
               <span
@@ -119,10 +129,12 @@ function BetList(props) {
               </span>
             ))}
           </div>
-          <Link to={"/" + bet.idEvento}>Dettagli</Link>
+          <Link to={"/" + bet.idEvento} className={classes.link}>
+            Dettagli
+          </Link>
         </Box>
       ))}
-    </List>
+    </Box>
   );
 }
 

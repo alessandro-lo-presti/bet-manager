@@ -1,16 +1,8 @@
 import { connect } from "react-redux";
 import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
   Button,
   TextField,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   makeStyles,
   Box,
 } from "@material-ui/core";
@@ -99,7 +91,7 @@ function BettingSlip(props) {
   };
 
   useEffect(() => {
-    // potCalculation();
+    potCalculation();
   }, [activeBet]);
 
   return (

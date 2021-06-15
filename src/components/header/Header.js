@@ -13,6 +13,9 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  brandname: {
+    marginRight: "20px",
+  },
   list: {
     display: "flex",
     listStyle: "none",
@@ -31,7 +34,7 @@ function Header() {
     <header className={classes.header}>
       <Container maxWidth="lg" className={classes.headerContainer}>
         <Box display="flex" alignItems="center">
-          <span>Brandname</span>
+          <span className={classes.brandname}>Brandname</span>
           <ul className={classes.list}>
             <li className={classes.listItem + " active"}>Home</li>
             <li className={classes.listItem}>Link</li>
