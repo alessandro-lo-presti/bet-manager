@@ -32,7 +32,7 @@ function Header() {
   const classes = useStyle();
   return (
     <header className={classes.header}>
-      <Container maxWidth="lg" className={classes.headerContainer}>
+      <Container maxWidth="md" className={classes.headerContainer}>
         <Box display="flex" alignItems="center">
           <span className={classes.brandname}>Brandname</span>
           <ul className={classes.list}>

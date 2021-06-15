@@ -7,15 +7,12 @@ import {
   ThemeProvider,
   CssBaseline,
   Grid,
-  makeStyles,
 } from "@material-ui/core";
 import { useMemo } from "react";
 import BetList from "./components/bet-list/BetList";
 import BetDetails from "./components/bet-details/BetDetails";
 import BettingSlip from "./components/betting-slip/BettingSlip";
 import Header from "./components/header/Header";
-
-const useStyle = makeStyles({});
 
 function App() {
   const theme = useMemo(
@@ -28,8 +25,6 @@ function App() {
     []
   );
 
-  const classes = useStyle();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -37,17 +32,17 @@ function App() {
       <Header />
 
       <Provider store={store}>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <Grid container spacing={3}>
             <Router>
               <Switch>
                 <Route exact path="/">
-                  <Grid item xs={9}>
+                  <Grid item xs={7}>
                     <BetList />
                   </Grid>
                 </Route>
                 <Route path="/:id">
-                  <Grid item xs={6}>
+                  <Grid item xs={7}>
                     <BetDetails />
                   </Grid>
                 </Route>

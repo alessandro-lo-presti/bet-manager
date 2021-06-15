@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
   bet_d: {
     width: "190px",
   },
+  resultBox: {
+    paddingRight: "43px",
+  },
+  result: {
+    width: "40px",
+    margin: "0 10px",
+    fontSize: "16px",
+    fontWeight: "bold",
+  },
   quota: {
     height: "35px",
     width: "40px",
@@ -104,8 +113,17 @@ function BetList(props) {
 
   return (
     <Box className={classes.root} display="flex" flexDirection="column">
-      <Box>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <h2 className={classes.title}>Partite in corso</h2>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          className={classes.resultBox}
+        >
+          <span className={classes.result}>1</span>
+          <span className={classes.result}>X</span>
+          <span className={classes.result}>2</span>
+        </Box>
       </Box>
       {betList.map((bet) => (
         <Box
@@ -116,22 +134,24 @@ function BetList(props) {
           className={classes.rowList}
         >
           <p className={classes.bet_d}>{bet.descrizione}</p>
-          <div className={classes.quote}>
-            {bet.quote.map((quota, index) => (
-              <span
-                key={quota}
-                className={
-                  classes.quota + " " + (isActive(bet, index) ? "active" : "")
-                }
-                onClick={() => setPlay(bet, index)}
-              >
-                {quota}
-              </span>
-            ))}
-          </div>
-          <Link to={"/" + bet.idEvento} className={classes.link}>
-            Dettagli
-          </Link>
+          <Box display="flex" alignItems="center">
+            <div className={classes.quote}>
+              {bet.quote.map((quota, index) => (
+                <span
+                  key={quota}
+                  className={
+                    classes.quota + " " + (isActive(bet, index) ? "active" : "")
+                  }
+                  onClick={() => setPlay(bet, index)}
+                >
+                  {quota}
+                </span>
+              ))}
+            </div>
+            <Link to={"/" + bet.idEvento} className={classes.link}>
+              Dettagli
+            </Link>
+          </Box>
         </Box>
       ))}
     </Box>
