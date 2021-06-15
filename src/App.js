@@ -30,7 +30,7 @@ function App() {
 
       <Provider store={store}>
         <Container maxWidth="md">
-          <Box display="flex">
+          <Box display="flex" justifyContent="space-around">
             <Box>
               <Router>
                 <Switch>

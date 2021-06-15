@@ -14,6 +14,7 @@ export const billSelector = (store) => store.bettingSlipSlice.bill;
 const TOOGLE_BET = "TOGGLE_BET";
 const SET_POT = "SET_POT";
 const SET_BILL = "SET_BILL";
+const CLEAR_BET = "CLEAR_BET";
 const CLEAR_ALL = "CLEAR_ALL";
 
 export const toogleBetAction = (bet, mult_index) => ({
@@ -32,7 +33,12 @@ export const setBillAction = (bill) => ({
   bill: bill,
 });
 
-export const clearAllAction = (bet) => ({
+export const clearBetAction = (bet) => ({
+  type: CLEAR_BET,
+  bet: bet,
+});
+
+export const clearAllAction = () => ({
   type: CLEAR_ALL,
 });
 
@@ -77,6 +83,14 @@ export const BettingSlipReducer = (state = initialState, action) => {
     }
     case SET_BILL: {
       return { ...state, bill: action.bill };
+    }
+    case CLEAR_BET: {
+      const e_index = state.activeBet.findIndex(
+        (element) => element.idEvento === action.bet.idEvento
+      );
+      const newActiveBet = [...state.activeBet];
+      newActiveBet.splice(e_index, 1);
+      return { ...state, activeBet: newActiveBet };
     }
     case CLEAR_ALL: {
       return initialState;

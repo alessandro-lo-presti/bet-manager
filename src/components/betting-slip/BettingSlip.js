@@ -5,16 +5,25 @@ import {
   CardActions,
   Button,
   TextField,
+  makeStyles,
 } from "@material-ui/core";
 import {
   activeBetSelector,
   potSelector,
   clearAllAction,
   setPotAction,
-  toogleBetAction,
   setBillAction,
+  clearBetAction,
 } from "../../redux/slices/bettingSlipSlice";
 import { useEffect } from "react";
+
+const useStyles = makeStyles((theme) => ({
+  sliprow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+}));
 
 const mapStateToProps = (state) => ({
   activeBet: activeBetSelector(state),
@@ -22,14 +31,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toogleBet: (bet) => dispatch(toogleBetAction(bet)),
+  clearBet: (bet) => dispatch(clearBetAction(bet)),
   setPot: (pot) => dispatch(setPotAction(pot)),
   setBill: (bill) => dispatch(setBillAction(bill)),
   clearAll: () => dispatch(clearAllAction()),
 });
 
 function BettingSlip(props) {
-  const { activeBet, pot, toogleBet, setPot, setBill, clearAll } = props;
+  const classes = useStyles();
+  const { activeBet, pot, clearBet, setPot, setBill, clearAll } = props;
 
   const potCalculation = () => {
     const newBill = parseInt(document.getElementById("puntata").value);
@@ -48,19 +58,15 @@ function BettingSlip(props) {
     potCalculation();
   }, [activeBet]);
 
-  const clearSlip = () => {
-    setPot(0);
-    clearAll();
-  };
-
   return (
     <Card>
       <CardContent>
         {activeBet.map((bet) => (
-          <div key={bet.idEvento}>
+          <div key={bet.idEvento} className={classes.sliprow}>
             <h4>
               {bet.descrizione}: {bet.quota}x
             </h4>
+            <i className="fas fa-minus" onClick={() => clearBet(bet)}></i>
           </div>
         ))}
         <p>{pot} €</p>
@@ -78,7 +84,7 @@ function BettingSlip(props) {
         <Button variant="contained" color="primary">
           Paga
         </Button>
-        <Button variant="contained" onClick={() => clearSlip()}>
+        <Button variant="contained" onClick={() => clearAll()}>
           Svuota
         </Button>
       </CardActions>
