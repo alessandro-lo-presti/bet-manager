@@ -90,6 +90,7 @@ function BettingSlip(props) {
             id="puntata"
             label="Puntata"
             type="number"
+            InputProps={{ inputProps: { min: 0 } }}
             onChange={() => potCalculation()}
             InputLabelProps={{
               shrink: true,
