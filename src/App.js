@@ -13,8 +13,7 @@ import BetList from "./components/bet-list/BetList";
 import BetDetails from "./components/bet-details/BetDetails";
 import BettingSlip from "./components/betting-slip/BettingSlip";
 import Header from "./components/header/Header";
-import ListBet from "./components/list-bet/ListBet";
-import DetailsBet from "./components/details-bet/DetailsBet";
+import BetCore from "./components/bet-core/BetCore";
 
 function App() {
   const theme = useMemo(
@@ -27,7 +26,7 @@ function App() {
     []
   );
 
-  const st = 1;
+  const st = 0;
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,14 +59,15 @@ function App() {
               ) : (
                 <>
                   <Grid item xs={12}>
-                    <Switch>
+                    {/* <Switch>
                       <Route exact path="/">
                         <ListBet />
                       </Route>
                       <Route path="/:id">
                         <DetailsBet />
                       </Route>
-                    </Switch>
+                    </Switch> */}
+                    <BetCore />
                   </Grid>
                 </>
               )}

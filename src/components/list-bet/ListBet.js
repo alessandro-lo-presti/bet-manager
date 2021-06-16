@@ -1,7 +1,6 @@
 import { Box, makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ApiServices } from "../../services/ApiServices";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "500px",
@@ -49,13 +48,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListBet() {
+function ListBet({ betList }) {
   const classes = useStyles();
-  const [betList, setBetList] = useState([]);
 
-  useEffect(() => {
-    ApiServices.betListApi().then(setBetList).catch(console.log);
-  }, []);
+  const setPlay = (bet, mult_index) => {
+    // const betReady = { ...bet };
+    // betReady.type = typeOfBet(mult_index);
+    // betReady.mult_index = mult_index;
+    // toggleBet(betReady);
+  };
+
+  const isActive = (bet, mult_index) => {
+    // const e = activeBet.find((element) => element.idEvento === bet.idEvento);
+    // return e && e.mult_index === mult_index ? true : false;
+  };
 
   return (
     <Box className={classes.root} display="flex" flexDirection="column">
@@ -83,8 +89,14 @@ function ListBet() {
           <Box display="flex" alignItems="center">
             <div className={classes.quote}>
               {bet.quote.map((quota, index) => (
-                <span key={quota} className={classes.quota}>
-                  {quota}
+                <span
+                  key={quota}
+                  className={
+                    classes.quota + " " + (isActive(bet, index) ? "active" : "")
+                  }
+                  onClick={() => setPlay(bet, index)}
+                >
+                  {quota.toFixed(2)}
                 </span>
               ))}
             </div>

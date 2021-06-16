@@ -149,7 +149,7 @@ function BetDetails(props) {
                       }
                       onClick={() => setPlay(bet, index)}
                     >
-                      {quota}
+                      {quota.toFixed(2)}
                     </span>
                   </td>
                 ))}
