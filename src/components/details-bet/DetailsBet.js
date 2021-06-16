@@ -40,8 +40,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   table: {
-    width: "100%",
-    padding: "0 30px",
+    width: "300px",
     marginBottom: "20px",
     textAlign: "center",
   },
@@ -127,7 +126,7 @@ function DetailsBet({ toggleBet, typeOfBet, isActive }) {
           >
             <h2>{bet.descrizione}</h2>
           </Box>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="center">
             {getArrayRows(bet).map((row, row_index) => (
               <table key={row} className={classes.table}>
                 <thead className={classes.tableHeader}>
