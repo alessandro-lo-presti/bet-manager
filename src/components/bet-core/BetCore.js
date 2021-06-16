@@ -18,8 +18,12 @@ const typeOfBet = (bet_index) => {
       return "1X";
     case 4:
       return "2X";
-    default:
+    case 5:
       return "12";
+    case 6:
+      return "U";
+    default:
+      return "O";
   }
 };
 

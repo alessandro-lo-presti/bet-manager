@@ -26,7 +26,7 @@ function App() {
     []
   );
 
-  const st = 1;
+  const st = 0;
 
   return (
     <ThemeProvider theme={theme}>

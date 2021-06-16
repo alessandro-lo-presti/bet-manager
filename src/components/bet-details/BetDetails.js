@@ -47,6 +47,20 @@ const useStyles = makeStyles((theme) => ({
     color: "#3f51bf",
     textDecoration: "none",
   },
+  textCenter: {
+    textAlign: "center",
+  },
+  table: {
+    width: "100%",
+    padding: "0 30px",
+    marginBottom: "20px",
+    textAlign: "center",
+  },
+  tableHeader: {
+    height: "30px",
+    backgroundColor: "#3f51bf",
+    color: "white",
+  },
 }));
 
 const mapStateToProps = (state) => ({
@@ -79,6 +93,17 @@ const typeOfBet = (bet_index) => {
       return "U";
     default:
       return "O";
+  }
+};
+
+const getTableName = (index) => {
+  switch (index) {
+    case 0:
+      return "Esito Finale";
+    case 1:
+      return "Doppia Chance";
+    default:
+      return "Under Over 0.5";
   }
 };
 
@@ -135,8 +160,6 @@ function BetDetails(props) {
       (arrayQuote) => (betReady.quote = [...betReady.quote, ...arrayQuote])
     );
 
-    console.log(betReady.quote);
-
     toggleBet(betReady);
   };
 
@@ -165,27 +188,38 @@ function BetDetails(props) {
           </Box>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             {getArrayRows(bet).map((row, row_index) => (
-              <table>
-                <thead>
-                  {getColumnsName(row_index * 3, row.length).map((name) => (
-                    <th>{name}</th>
-                  ))}
+              <table key={row} className={classes.table}>
+                <thead className={classes.tableHeader}>
+                  <tr>
+                    <th className={classes.textCenter} colSpan={3}>
+                      {getTableName(row_index)}
+                    </th>
+                  </tr>
                 </thead>
-                <tbody>
-                  {row.map((quota, index) => (
-                    <td key={quota}>
-                      <span
-                        className={
-                          classes.quota +
-                          " " +
-                          (isActive(bet, row_index * 3 + index) ? "active" : "")
-                        }
-                        onClick={() => setPlay(bet, row_index * 3 + index)}
-                      >
-                        {quota.toFixed(2)}
-                      </span>
-                    </td>
-                  ))}
+                <tbody className={classes.tableBody}>
+                  <tr>
+                    {getColumnsName(row_index * 3, row.length).map((name) => (
+                      <th key={name}>{name}</th>
+                    ))}
+                  </tr>
+                  <tr>
+                    {row.map((quota, index) => (
+                      <td key={quota}>
+                        <span
+                          className={
+                            classes.quota +
+                            " " +
+                            (isActive(bet, row_index * 3 + index)
+                              ? "active"
+                              : "")
+                          }
+                          onClick={() => setPlay(bet, row_index * 3 + index)}
+                        >
+                          {quota.toFixed(2)}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
                 </tbody>
               </table>
             ))}
