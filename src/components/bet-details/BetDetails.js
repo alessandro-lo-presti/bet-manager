@@ -73,9 +73,35 @@ const typeOfBet = (bet_index) => {
       return "1X";
     case 4:
       return "2X";
-    default:
+    case 5:
       return "12";
+    case 6:
+      return "U";
+    default:
+      return "O";
   }
+};
+
+const getColumnsName = (index, length) => {
+  const columns = [];
+
+  for (let i = 0; i < length; i++) {
+    columns.push(typeOfBet(index + i));
+  }
+
+  return columns;
+};
+
+const getArrayRows = (bet) => {
+  const rows = [];
+
+  if (bet) {
+    for (let i in bet.betList) {
+      rows.push(bet.betList[i]);
+    }
+  }
+
+  return rows;
 };
 
 function BetDetails(props) {
@@ -101,7 +127,16 @@ function BetDetails(props) {
     const betReady = { ...bet };
     betReady.type = typeOfBet(mult_index);
     betReady.mult_index = mult_index;
-    betReady.quote = [...betReady.betList["1X2"], ...betReady.betList["DC"]];
+    betReady.quote = [];
+
+    const quote = getArrayRows(bet);
+
+    quote.forEach(
+      (arrayQuote) => (betReady.quote = [...betReady.quote, ...arrayQuote])
+    );
+
+    console.log(betReady.quote);
+
     toggleBet(betReady);
   };
 
@@ -128,47 +163,32 @@ function BetDetails(props) {
           >
             <h2>{bet.descrizione}</h2>
           </Box>
-          <Box display="flex" justifyContent="center">
-            <table>
-              <thead>
-                <th>1</th>
-                <th>X</th>
-                <th>2</th>
-                <th>1X</th>
-                <th>2X</th>
-                <th>12</th>
-              </thead>
-              <tbody>
-                {bet.betList["1X2"].map((quota, index) => (
-                  <td key={quota}>
-                    <span
-                      className={
-                        classes.quota +
-                        " " +
-                        (isActive(bet, index) ? "active" : "")
-                      }
-                      onClick={() => setPlay(bet, index)}
-                    >
-                      {quota.toFixed(2)}
-                    </span>
-                  </td>
-                ))}
-                {bet.betList["DC"].map((quota, index) => (
-                  <td key={quota}>
-                    <span
-                      className={
-                        classes.quota +
-                        " " +
-                        (isActive(bet, index + 3) ? "active" : "")
-                      }
-                      onClick={() => setPlay(bet, index + 3)}
-                    >
-                      {quota.toFixed(2)}
-                    </span>
-                  </td>
-                ))}
-              </tbody>
-            </table>
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
+            {getArrayRows(bet).map((row, row_index) => (
+              <table>
+                <thead>
+                  {getColumnsName(row_index * 3, row.length).map((name) => (
+                    <th>{name}</th>
+                  ))}
+                </thead>
+                <tbody>
+                  {row.map((quota, index) => (
+                    <td key={quota}>
+                      <span
+                        className={
+                          classes.quota +
+                          " " +
+                          (isActive(bet, row_index * 3 + index) ? "active" : "")
+                        }
+                        onClick={() => setPlay(bet, row_index * 3 + index)}
+                      >
+                        {quota.toFixed(2)}
+                      </span>
+                    </td>
+                  ))}
+                </tbody>
+              </table>
+            ))}
           </Box>
         </Box>
       ) : (
