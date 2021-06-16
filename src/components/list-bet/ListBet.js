@@ -48,18 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const typeOfBet = (bet_index) => {
-  switch (bet_index) {
-    case 0:
-      return "1";
-    case 1:
-      return "X";
-    default:
-      return "2";
-  }
-};
-
-function ListBet({ betList, toggleBet, isActive }) {
+function ListBet({ betList, toggleBet, typeOfBet, isActive }) {
   const classes = useStyles();
 
   const setPlay = (bet, mult_index) => {

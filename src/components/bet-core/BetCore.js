@@ -6,9 +6,25 @@ import DetailsBet from "../details-bet/DetailsBet";
 import SlipBetting from "../slip-betting/SlipBetting";
 import { Grid } from "@material-ui/core";
 
+const typeOfBet = (bet_index) => {
+  switch (bet_index) {
+    case 0:
+      return "1";
+    case 1:
+      return "X";
+    case 2:
+      return "2";
+    case 3:
+      return "1X";
+    case 4:
+      return "2X";
+    default:
+      return "12";
+  }
+};
+
 function BetCore() {
   const [betList, setBetList] = useState([]);
-  const [BetDetailsList, setBetDetailList] = useState([]);
   const [activeBet, setActiveBet] = useState([]);
 
   useEffect(() => {
@@ -59,11 +75,16 @@ function BetCore() {
             <ListBet
               betList={betList}
               toggleBet={toggleBet}
+              typeOfBet={typeOfBet}
               isActive={isActive}
             />
           </Route>
           <Route path="/:id">
-            <DetailsBet bet />
+            <DetailsBet
+              toggleBet={toggleBet}
+              typeOfBet={typeOfBet}
+              isActive={isActive}
+            />
           </Route>
         </Grid>
         <Grid item xs={3}>

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DetailsBet() {
+function DetailsBet({ toggleBet, typeOfBet, isActive }) {
   const classes = useStyles();
   const bet_id = parseInt(useParams().id);
   const [bet, setBet] = useState({});
@@ -46,6 +46,14 @@ function DetailsBet() {
   useEffect(() => {
     ApiServices.detailsBetApi(bet_id).then(setBet).catch(console.log);
   }, [bet_id]);
+
+  const setPlay = (bet, mult_index) => {
+    const betReady = { ...bet };
+    betReady.type = typeOfBet(mult_index);
+    betReady.mult_index = mult_index;
+    betReady.quote = [...betReady.betList["1X2"], ...betReady.betList["DC"]];
+    toggleBet(betReady);
+  };
 
   return (
     <div>
@@ -78,12 +86,30 @@ function DetailsBet() {
               <tbody>
                 {bet.betList["1X2"].map((quota, index) => (
                   <td key={quota}>
-                    <span className={classes.quota}>{quota}</span>
+                    <span
+                      className={
+                        classes.quota +
+                        " " +
+                        (isActive(bet, index) ? "active" : "")
+                      }
+                      onClick={() => setPlay(bet, index)}
+                    >
+                      {quota.toFixed(2)}
+                    </span>
                   </td>
                 ))}
                 {bet.betList["DC"].map((quota, index) => (
                   <td key={quota}>
-                    <span className={classes.quota}>{quota}</span>
+                    <span
+                      className={
+                        classes.quota +
+                        " " +
+                        (isActive(bet, index + 3) ? "active" : "")
+                      }
+                      onClick={() => setPlay(bet, index + 3)}
+                    >
+                      {quota.toFixed(2)}
+                    </span>
                   </td>
                 ))}
               </tbody>
