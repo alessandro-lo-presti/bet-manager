@@ -48,14 +48,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListBet({ betList }) {
+const typeOfBet = (bet_index) => {
+  switch (bet_index) {
+    case 0:
+      return "1";
+    case 1:
+      return "X";
+    default:
+      return "2";
+  }
+};
+
+function ListBet({ betList, toggleBet }) {
   const classes = useStyles();
 
   const setPlay = (bet, mult_index) => {
-    // const betReady = { ...bet };
-    // betReady.type = typeOfBet(mult_index);
-    // betReady.mult_index = mult_index;
-    // toggleBet(betReady);
+    const betReady = { ...bet };
+    betReady.type = typeOfBet(mult_index);
+    betReady.mult_index = mult_index;
+    toggleBet(betReady);
   };
 
   const isActive = (bet, mult_index) => {

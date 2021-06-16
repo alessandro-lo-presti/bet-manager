@@ -54,10 +54,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BettingSlip(props) {
+function BettingSlip({ activeBet }) {
   const classes = useStyles();
   const [quotaTotale, setQuotaTotale] = useState(0);
-  const [activeBet, setActiveBet] = useState([]);
   const [pot, setPot] = useState(0);
 
   const potCalculation = () => {
