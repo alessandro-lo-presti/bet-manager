@@ -60,9 +60,7 @@ export const BettingSlipReducer = (state = initialState, action) => {
           return { ...state, activeBet: newActiveBet };
         }
       } else {
-        const newElement = {
-          ...action.bet,
-        };
+        const newElement = { ...action.bet };
         return { ...state, activeBet: [...state.activeBet, newElement] };
       }
     }
