@@ -14,7 +14,7 @@ import {
   setBillAction,
   clearBetAction,
 } from "../../redux/slices/bettingSlipSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0",
     padding: "0 30px",
   },
-  rowPot: {
-    margin: "20px 0",
-    padding: "0 30px",
+  rowPQ: {
+    marginTop: "5px",
   },
   rowList: {
     margin: "5px 0",
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
   },
   pot: {
-    marginLeft: "80px",
+    width: "100px",
   },
   potText: {
     fontSize: "16px",
@@ -76,17 +75,19 @@ const mapDispatchToProps = (dispatch) => ({
 function BettingSlip(props) {
   const classes = useStyles();
   const { activeBet, pot, clearBet, setPot, setBill, clearAll } = props;
+  const [quotaTotale, setQuotaTotale] = useState(0);
 
   const potCalculation = () => {
+    let q_tot = activeBet.length === 0 ? 0 : 1;
     const newBill = parseInt(document.getElementById("puntata").value);
     setBill(newBill);
 
     let newPot = newBill;
     activeBet.forEach((element) => {
-      newPot *= element.quota;
+      q_tot *= element.quote[element.mult_index];
     });
-    newPot =
-      newPot === newBill || isNaN(newPot) ? 0 : Math.round(newPot * 100) / 100;
+    setQuotaTotale(q_tot.toFixed(2));
+    newPot = isNaN(newPot) ? 0 : Math.round(newPot * q_tot * 100) / 100;
     setPot(newPot);
   };
 
@@ -109,15 +110,40 @@ function BettingSlip(props) {
         >
           <p className={classes.bet_d}>{bet.descrizione}</p>
           <p className={classes.bet_q}>
-            {bet.type + ": " + bet.quote[bet.mult_index]}
+            {bet.type + ": " + bet.quote[bet.mult_index].toFixed(2)}
           </p>
           <i
-            className={"fas fa-minus " + classes.icon}
+            className={"fas fa-times " + classes.icon}
             onClick={() => clearBet(bet)}
           ></i>
         </Box>
       ))}
-      <Box className={classes.rowPot} display="flex" alignItems="center">
+      <Box className={classes.row}>
+        <Box
+          className={classes.rowPQ}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography className={classes.potText}>Quota totale</Typography>
+          <Typography>{quotaTotale}</Typography>
+        </Box>
+        <Box
+          className={classes.rowPQ}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography className={classes.potText}>Vincita</Typography>
+          <Typography>{pot} €</Typography>
+        </Box>
+      </Box>
+      <Box
+        className={classes.row}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <TextField
           id="puntata"
           label="Puntata"
@@ -128,21 +154,7 @@ function BettingSlip(props) {
             shrink: true,
           }}
         />
-        <Box className={classes.pot}>
-          <Typography className={classes.potText}>Pot</Typography>
-          <Typography className={classes.textCenter}>{pot} €</Typography>
-        </Box>
-      </Box>
-      <Box
-        className={classes.row}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Button variant="contained" color="primary">
-          Paga
-        </Button>
-        <Button variant="contained" onClick={() => clearAll()}>
+        <Button variant="contained" color="primary" onClick={() => clearAll()}>
           Reset
         </Button>
       </Box>
