@@ -108,7 +108,9 @@ function BettingSlip(props) {
           className={classes.rowList}
         >
           <p className={classes.bet_d}>{bet.descrizione}</p>
-          <p className={classes.bet_q}>{bet.tipo + ": " + bet.quota}</p>
+          <p className={classes.bet_q}>
+            {bet.type + ": " + bet.quote[bet.mult_index]}
+          </p>
           <i
             className={"fas fa-minus " + classes.icon}
             onClick={() => clearBet(bet)}

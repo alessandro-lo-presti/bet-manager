@@ -109,7 +109,7 @@ function BetList(props) {
 
   const isActive = (bet, mult_index) => {
     const e = activeBet.find((element) => element.idEvento === bet.idEvento);
-    return e && e.quota === e.quote[mult_index] ? true : false;
+    return e && e.mult_index === mult_index ? true : false;
   };
 
   return (

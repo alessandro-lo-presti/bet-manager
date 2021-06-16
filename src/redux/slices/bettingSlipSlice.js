@@ -45,36 +45,23 @@ export const clearAllAction = () => ({
 export const BettingSlipReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOOGLE_BET: {
-      // ottiene l'oggetto se è presente
-      const e = state.activeBet.find(
+      const e_index = state.activeBet.findIndex(
         (element) => element.idEvento === action.bet.idEvento
       );
 
-      // controlla se presente
-      if (e) {
-        //   rimuovo l'oggetto
-        const e_index = state.activeBet.findIndex(
-          (element) => element.idEvento === action.bet.idEvento
-        );
+      if (e_index >= 0) {
         const newActiveBet = [...state.activeBet];
-        newActiveBet.splice(e_index, 1);
-        if (e.quota !== action.bet.quote[action.bet.mult_index]) {
-          // se la quota selezionata è diversa da quella vecchia inserisco un nuovo oggetto con la quota aggiornata
-          const newElement = {
-            ...action.bet,
-            tipo: action.bet.type,
-            quota: action.bet.quote[action.bet.mult_index],
-          };
+        const e = newActiveBet.splice(e_index, 1);
+
+        if (e[0].mult_index !== action.bet.mult_index) {
+          const newElement = { ...action.bet };
           return { ...state, activeBet: [...newActiveBet, newElement] };
         } else {
           return { ...state, activeBet: newActiveBet };
         }
       } else {
-        //   non è presente, inserisco l'oggetto passato
         const newElement = {
           ...action.bet,
-          tipo: action.bet.type,
-          quota: action.bet.quote[action.bet.mult_index],
         };
         return { ...state, activeBet: [...state.activeBet, newElement] };
       }
