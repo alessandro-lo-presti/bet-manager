@@ -54,27 +54,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BettingSlip({ activeBet }) {
+function BettingSlip(props) {
   const classes = useStyles();
+  const { activeBet, clearBet, clearAll } = props;
   const [quotaTotale, setQuotaTotale] = useState(0);
   const [pot, setPot] = useState(0);
 
   const potCalculation = () => {
-    // let q_tot = activeBet.length === 0 ? 0 : 1;
-    // const newBill = parseInt(document.getElementById("puntata").value);
-    // setBill(newBill);
-    // let newPot = newBill;
-    // activeBet.forEach((element) => {
-    //   q_tot *= element.quote[element.mult_index];
-    // });
-    // setQuotaTotale(q_tot.toFixed(2));
-    // newPot = isNaN(newPot) ? 0 : Math.round(newPot * q_tot * 100) / 100;
-    // setPot(newPot);
+    let q_tot = activeBet.length === 0 ? 0 : 1;
+    let newPot = parseInt(document.getElementById("puntata").value);
+    activeBet.forEach((element) => {
+      q_tot *= element.quote[element.mult_index];
+    });
+    setQuotaTotale(q_tot.toFixed(2));
+    newPot = isNaN(newPot) ? 0 : Math.round(newPot * q_tot * 100) / 100;
+    setPot(newPot);
   };
 
-  //   useEffect(() => {
-  //     potCalculation();
-  //   }, [activeBet]);
+  useEffect(() => {
+    potCalculation();
+  }, [activeBet]);
 
   return (
     <Box className={classes.root} display="flex" flexDirection="column">
@@ -82,7 +81,7 @@ function BettingSlip({ activeBet }) {
         <h2 className={classes.title}>Il tuo biglietto</h2>
         <i
           className={"fas fa-times " + classes.icon + " " + classes.pr10}
-          //   onClick={() => clearAll()}
+          onClick={() => clearAll()}
         ></i>
       </Box>
       {activeBet.map((bet) => (
@@ -99,7 +98,7 @@ function BettingSlip({ activeBet }) {
           </p>
           <i
             className={"fas fa-times " + classes.icon}
-            // onClick={() => clearBet(bet)}
+            onClick={() => clearBet(bet)}
           ></i>
         </Box>
       ))}

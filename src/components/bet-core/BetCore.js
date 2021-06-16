@@ -40,6 +40,17 @@ function BetCore() {
     return e && e.mult_index === mult_index ? true : false;
   };
 
+  const clearBet = (bet) => {
+    const e_index = activeBet.findIndex(
+      (element) => element.idEvento === bet.idEvento
+    );
+    const newActiveBet = [...activeBet];
+    newActiveBet.splice(e_index, 1);
+    setActiveBet(newActiveBet);
+  };
+
+  const clearAll = () => setActiveBet([]);
+
   return (
     <Switch>
       <Grid container spacing={3}>
@@ -56,7 +67,11 @@ function BetCore() {
           </Route>
         </Grid>
         <Grid item xs={3}>
-          <SlipBetting activeBet={activeBet} />
+          <SlipBetting
+            activeBet={activeBet}
+            clearBet={clearBet}
+            clearAll={clearAll}
+          />
         </Grid>
       </Grid>
     </Switch>
