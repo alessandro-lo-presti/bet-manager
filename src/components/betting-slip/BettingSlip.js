@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   textCenter: {
     textAlign: "center",
   },
+  pr10: {
+    paddingRight: "10px",
+  },
   bet_d: {
     width: "190px",
   },
@@ -97,8 +100,12 @@ function BettingSlip(props) {
 
   return (
     <Box className={classes.root} display="flex" flexDirection="column">
-      <Box>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <h2 className={classes.title}>Il tuo biglietto</h2>
+        <i
+          className={"fas fa-times " + classes.icon + " " + classes.pr10}
+          onClick={() => clearAll()}
+        ></i>
       </Box>
       {activeBet.map((bet) => (
         <Box
@@ -135,7 +142,7 @@ function BettingSlip(props) {
           justifyContent="space-between"
         >
           <Typography className={classes.potText}>Vincita</Typography>
-          <Typography>{pot} €</Typography>
+          <Typography>{pot.toFixed(2)} €</Typography>
         </Box>
       </Box>
       <Box
@@ -155,7 +162,7 @@ function BettingSlip(props) {
           }}
         />
         <Button variant="contained" color="primary" onClick={() => clearAll()}>
-          Reset
+          Paga
         </Button>
       </Box>
     </Box>
