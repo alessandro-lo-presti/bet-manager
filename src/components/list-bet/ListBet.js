@@ -59,7 +59,7 @@ const typeOfBet = (bet_index) => {
   }
 };
 
-function ListBet({ betList, toggleBet }) {
+function ListBet({ betList, toggleBet, isActive }) {
   const classes = useStyles();
 
   const setPlay = (bet, mult_index) => {
@@ -67,11 +67,6 @@ function ListBet({ betList, toggleBet }) {
     betReady.type = typeOfBet(mult_index);
     betReady.mult_index = mult_index;
     toggleBet(betReady);
-  };
-
-  const isActive = (bet, mult_index) => {
-    // const e = activeBet.find((element) => element.idEvento === bet.idEvento);
-    // return e && e.mult_index === mult_index ? true : false;
   };
 
   return (

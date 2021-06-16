@@ -35,12 +35,21 @@ function BetCore() {
     setActiveBet(newActiveBet);
   };
 
+  const isActive = (bet, mult_index) => {
+    const e = activeBet.find((element) => element.idEvento === bet.idEvento);
+    return e && e.mult_index === mult_index ? true : false;
+  };
+
   return (
     <Switch>
       <Grid container spacing={3}>
         <Grid item xs={7}>
           <Route exact path="/">
-            <ListBet betList={betList} toggleBet={toggleBet} />
+            <ListBet
+              betList={betList}
+              toggleBet={toggleBet}
+              isActive={isActive}
+            />
           </Route>
           <Route path="/:id">
             <DetailsBet bet />
